@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cronómetro</title>
+  <style>
+    .container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .time {
+      font-size: 48px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cronómetro</h1>
+    <h2>Andrea escobar</h2>
+    <div class="time">00:00:00</div>
+    <button onclick="start()">Iniciar</button>
+    <button id="btnDetener" onclick="stop()">Detener</button>
+  </div>
+
+  <script>
+    var startTime;
+    var timerInterval;
+
+    function start() {
+      startTime = Date.now();
+      timerInterval = setInterval(updateTime, 1000);
+    }
+
+    function stop() {
+      clearInterval(timerInterval);
+    }
+
+  
+    function updateTime() {
+      var currentTime = Date.now() - startTime;
+      var seconds = Math.floor(currentTime / 1000) % 60;
+      var minutes = Math.floor(currentTime / 1000 / 60) % 60;
+      var hours = Math.floor(currentTime / 1000 / 3600);
+
+      // Formatear los valores
+      var formattedTime = pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+
+      var timeElement = document.querySelector('.time');
+      timeElement.textContent = formattedTime;
+    }
+
+    function pad(value, width) {
+      value = value.toString();
+      while (value.length < width) {
+        value = '0' + value;
+      }
+      return value;
+    }
+  </script>
+</body>
+</html>
